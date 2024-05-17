@@ -30,4 +30,25 @@ public class FileHandler {
             e.printStackTrace();
         }
     }
+
+    public static String extractFirst(String jsonString) {
+        int colonIndex = jsonString.indexOf(':');
+        if (colonIndex == -1) {
+            return "Colon not found";
+        }
+
+        int commaIndex = jsonString.indexOf(',', colonIndex);
+        if (commaIndex == -1) {
+            // If there is no comma, it might be the last element in the JSON object
+            commaIndex = jsonString.indexOf('}', colonIndex);
+        }
+
+        if (commaIndex == -1) {
+            return "Comma or closing brace not found";
+        }
+
+        // Extract the part between the colon and the comma
+        return jsonString.substring(colonIndex + 1, commaIndex).trim();
+    }
+
 }
